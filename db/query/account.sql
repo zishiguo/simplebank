@@ -8,7 +8,7 @@ SELECT * FROM accounts WHERE id = ?;
 SELECT * FROM accounts WHERE id = ? FOR UPDATE;
 
 -- name: ListAccounts :many
-SELECT * FROM accounts ORDER BY id LIMIT ?, ?;
+SELECT * FROM accounts WHERE owner = ? ORDER BY id LIMIT ?, ?;
 
 -- name: UpdateAccount :exec
 UPDATE accounts SET balance = ? where id = ?;
