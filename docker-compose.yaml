@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: rpa
+      MYSQL_DATABASE: simple_bank
+  api:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    environment:
+      DB_DRIVER: mysql
+      DB_SOURCE: root:rpa@tcp(db:3306)/simple_bank?parseTime=true
+    depends_on:
+      - db
+    command: ["./wait-for.sh", "db:3306", "--", "./start.sh", "./main"]
