@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
 
-set -e
+set -x
 
 echo "run db migration"
 
-export "$(xargs < app.env)"
+export "$(grep -v '^#' app.env | xargs -0)"
 
 /app/migrate -path /app/migration -database "$DB_DRIVER://$DB_SOURCE" -verbose up
 
