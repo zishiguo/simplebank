@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 
+set +o posix
 set -e
 
 echo "run db migration"
