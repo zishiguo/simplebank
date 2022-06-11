@@ -7,7 +7,7 @@ dropdb:
 migrateup1:
 	migrate -path db/migration -database "mysql://root:rpa@tcp(localhost:3306)/simple_bank" -verbose up 1
 migrateup:
-	migrate -path db/migration -database "mysql://root:mypassword@tcp(simple-bank.cenzyx78n0yk.ap-east-1.rds.amazonaws.com:3306)/simple_bank?parseTime=true" -verbose up
+	migrate -path db/migration -database "mysql://root:rpa@tcp(localhost:3306)/simple_bank" -verbose up
 migratedown1:
 	migrate -path db/migration -database "mysql://root:rpa@tcp(localhost:3306)/simple_bank" -verbose down 1
 migratedown:
