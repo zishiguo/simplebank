@@ -4,7 +4,7 @@ set -ex
 
 echo "run db migration"
 
-export "$(grep -v '^#' app.env | xargs -0)"
+export "$(cat app.env | xargs)"
 
 /app/migrate -path /app/migration -database "$DB_DRIVER://$DB_SOURCE" -verbose up
 
