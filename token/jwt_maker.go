@@ -21,15 +21,17 @@ func NewJWTMaker(secretKey string) (Maker, error) {
 	return &JWTMaker{secretKey: secretKey}, nil
 }
 
-func (m JWTMaker) CreateToken(username string, d time.Duration) (string, error) {
+func (m JWTMaker) CreateToken(username string, d time.Duration) (string, *Payload, error) {
 	payload, err := NewPayload(username, d)
 	if err != nil {
-		return "", err
+		return "", payload, err
 	}
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, payload)
+	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, payload)
 
-	return token.SignedString([]byte(m.secretKey))
+	token, err := jwtToken.SignedString([]byte(m.secretKey))
+
+	return token, payload, err
 }
 
 func (m JWTMaker) VerifyToken(token string) (*Payload, error) {
